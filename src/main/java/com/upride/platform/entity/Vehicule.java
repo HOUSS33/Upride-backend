@@ -7,16 +7,17 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "vehicles")
+@Table(name = "vehicules")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Vehicule {
 
     @Id
     @GeneratedValue
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
-    private UUID id;   // <-- changed from Long to UUID
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "agency_id", nullable = false)
@@ -25,18 +26,15 @@ public class Vehicule {
     @Column(nullable = false)
     private String marque;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true, nullable = false)
     private String matricule;
 
+    @Column(nullable = false)
     private Double price;
+
     private String model;
+    private Integer year;
     private String photoUrl;
-
-    private Integer currentKm = 0;
-
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
-    private List<Booking> bookings;
+    private Integer currentKm;
+    private LocalDateTime createdAt;
 }
-

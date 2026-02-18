@@ -6,21 +6,24 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "bookings")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Booking {
 
     @Id
     @GeneratedValue
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
-    private UUID id;   // <-- changed from Long to UUID
+    private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_id", nullable = false)
-    private Vehicule vehicle;
+    @JoinColumn(name = "vehicule_id", nullable = false)
+    private Vehicule vehicule;
 
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
@@ -34,13 +37,26 @@ public class Booking {
 
     private LocalDate returnedAt;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BookingType type;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BookingStatus status;
+
     @Column(nullable = false)
     private Double totalAmount;
 
     private Double monthlyAmount;
+    private Double livraisonFee;
+    private LocalDateTime createdAt;
 
-    @Column(columnDefinition = "NUMERIC(10,2) DEFAULT 0")
-    private Double livraisonFee = 0.0;
+    public enum BookingType {
+        LONGUE_DUREE, COURTE_DUREE
+    }
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    public enum BookingStatus {
+        PENDING, CONFIRMED, CANCELLED, ONGOING, COMPLETED
+    }
 }

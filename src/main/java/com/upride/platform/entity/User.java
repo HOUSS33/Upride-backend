@@ -2,32 +2,35 @@ package com.upride.platform.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "agencies")
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Agency {
+public class User {
 
     @Id
     @GeneratedValue
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private User user;
+    @Column(unique = true, nullable = false)
+    private String email;
 
     @Column(nullable = false)
-    private String name;
+    private String passwordHash;
 
-    private String city;
-    private String country;
-    private String phone;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRole role;
+
     private LocalDateTime createdAt;
+
+    public enum UserRole {
+        CLIENT, AGENCY, STAFF
+    }
 }
