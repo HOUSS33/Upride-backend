@@ -1,6 +1,8 @@
 package com.upride.platform.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,6 +26,8 @@ public class User implements UserDetails{
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
+    @Email(message = "Le format de l'email est invalide")
+    @Size(max = 15, message = "L'email ne doit pas dépasser 15 caractères")
     @Column(unique = true, nullable = false)
     private String email;
 

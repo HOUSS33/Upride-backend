@@ -10,12 +10,14 @@ import com.upride.platform.repo.UserRepository;
 import com.upride.platform.service.interfac.IUserService;
 import com.upride.platform.utils.JWTUtils;
 import com.upride.platform.utils.Utils;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,6 +46,7 @@ public class UserService implements IUserService {
                 throw new OurException(user.getEmail() + "Already Exists");
             }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setCreatedAt(LocalDateTime.now());
             User savedUser = userRepository.save(user);
             UserDTO userDTO = Utils.mapUserEntityToUserDTO(savedUser);
             response.setStatusCode(200);

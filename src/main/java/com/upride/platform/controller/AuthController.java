@@ -4,6 +4,7 @@ import com.upride.platform.dto.LoginRequest;
 import com.upride.platform.dto.Response;
 import com.upride.platform.entity.User;
 import com.upride.platform.service.interfac.IUserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class AuthController {
     private IUserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<Response> register(@RequestBody User user) {
+    public ResponseEntity<Response> register(@Valid @RequestBody User user) { // @Valid déclenche les vérifications
         Response response = userService.register(user);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }

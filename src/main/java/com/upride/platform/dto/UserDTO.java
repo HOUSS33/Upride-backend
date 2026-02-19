@@ -7,6 +7,7 @@ import com.upride.platform.entity.Client;
 import com.upride.platform.entity.User;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -17,4 +18,5 @@ public class UserDTO {
     private User.UserRole role;
     private Client client;
     private Agency agency;
+    private LocalDateTime createdAt;
 }

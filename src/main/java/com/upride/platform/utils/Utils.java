@@ -34,6 +34,8 @@ public class Utils {
         userDTO.setEmail(user.getEmail());
 
         userDTO.setRole(user.getRole());
+
+        userDTO.setCreatedAt(user.getCreatedAt());
         return userDTO;
     }
 

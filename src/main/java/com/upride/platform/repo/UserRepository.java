@@ -11,6 +11,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     boolean existsByEmail(String email);
     Optional<User> findByEmail(String email);
 
-
+    // Spring Data JPA  génère automatiquement la méthode Optional<User> findById(UUID id) en coulisses.
     Optional<User> findById(UUID id);
 }
