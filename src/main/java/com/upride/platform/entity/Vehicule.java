@@ -19,9 +19,12 @@ public class Vehicule {
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "agency_id", nullable = false)
     private Agency agency;
+
+    @OneToMany(mappedBy = "vehicule", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Booking> bookings;
 
     @Column(nullable = false)
     private String marque;
@@ -37,4 +40,6 @@ public class Vehicule {
     private String photoUrl;
     private Integer currentKm;
     private LocalDateTime createdAt;
+
+
 }
